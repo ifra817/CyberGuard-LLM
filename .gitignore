@@ -1,0 +1,49 @@
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Logs
+*.log
+
+# Model files (very important)
+models/
+checkpoints/
+outputs/
+cache/
+
+# Hugging Face cache (if you keep it inside the project)
+hf_cache/
+
+# Training artifacts
+runs/
+wandb/
+
+# Temporary files
+*.tmp
+*.bak
