@@ -48,3 +48,6 @@ wandb/
 # Temporary files
 *.tmp
 *.bak
+
+training/dataset/processed/
+training/dataset/raw/

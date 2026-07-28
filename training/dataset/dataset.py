@@ -1,5 +1,4 @@
 import json
-import os
 import pandas as pd
 from pathlib import Path
 
@@ -23,27 +22,16 @@ def validate_and_filter(df: pd.DataFrame) -> list:
     clean_conversations = []
     
     # Iterate through rows (each row/index is a conversation list)
-    for idx, row in df.iterrows():
-        # Convert row values to list if needed
-        messages = row.dropna().tolist()
-        
-        if not isinstance(messages, list) or len(messages) < 2:
-            continue
-        
-        valid = True
-        for msg in messages:
-            if not isinstance(msg, dict):
-                valid = False
-                break
+    for row in df.itertuples():
+        messages = []
+        # Convert row values to dict [{"role": role, "content": content}, ...]
+        row_dict = row._asdict()
+        for role, content in row_dict.items():
+            if role == 'Index': continue
+            if pd.notna(content) and str(content).strip():
+                messages.append({"role": role, "content": content})
             
-            role = msg.get("role")
-            content = msg.get("content")
-            
-            if not role or not content or not str(content).strip():
-                valid = False
-                break
-                
-        if valid:
+        if len(messages) >= 2:
             clean_conversations.append(messages)
             
     print(f"Validation complete. Retained {len(clean_conversations)} valid conversations.")
