@@ -52,3 +52,10 @@ wandb/
 training/dataset/processed/
 training/dataset/raw/
 training/dataset/tokenized/
+
+# External dependencies
+llama.cpp/
+
+# Local model files
+*.gguf
+models/
