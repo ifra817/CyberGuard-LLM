@@ -51,3 +51,4 @@ wandb/
 
 training/dataset/processed/
 training/dataset/raw/
+training/dataset/tokenized/

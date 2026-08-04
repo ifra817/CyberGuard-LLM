@@ -21,16 +21,22 @@ def validate_and_filter(df: pd.DataFrame) -> list:
     print("Validating messages...")
     clean_conversations = []
     
-    # Iterate through rows (each row/index is a conversation list)
-    for row in df.itertuples():
+    for _, row in df.iterrows():
         messages = []
-        # Convert row values to dict [{"role": role, "content": content}, ...]
-        row_dict = row._asdict()
-        for role, content in row_dict.items():
-            if role == 'Index': continue
-            if pd.notna(content) and str(content).strip():
-                messages.append({"role": role, "content": content})
+        
+        # Check system prompt if present
+        if "system" in row and pd.notna(row["system"]) and str(row["system"]).strip():
+            messages.append({"role": "system", "content": str(row["system"]).strip()})
             
+        # Check user prompt
+        if "user" in row and pd.notna(row["user"]) and str(row["user"]).strip():
+            messages.append({"role": "user", "content": str(row["user"]).strip()})
+            
+        # Check assistant prompt
+        if "assistant" in row and pd.notna(row["assistant"]) and str(row["assistant"]).strip():
+            messages.append({"role": "assistant", "content": str(row["assistant"]).strip()})
+            
+        # Ensure at least a user and assistant pair exist
         if len(messages) >= 2:
             clean_conversations.append(messages)
             
